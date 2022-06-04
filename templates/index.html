@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Factorizacion SVD</title>
+
+</head>
+
+<body>
+
+    <main>
+        <div class="container p-4">
+            <div class="alert alert-info text-center" role="alert">
+                <h4 class="alert-heading">Facultad de Ingenieria y Ciencias</h4>
+                <h5 class="alert-heading"> Analisis y Computacion Numerica</h5>
+                <h5 class="alert-heading"> Factorizacion SVD </h5>
+                <h6 class="alert-heading"> Autores: </h6>
+                Geiler Hipia Mejia, Jair Narvaez Chamarro, Juan Villaroel Luengas, Laura Benavides Ocampo
+                <h6 class="alert-heading"> Docente: </h6>
+                Andres Felipe Amador Rodriguez
+                <hr>
+                <p class="mb-0 "> Junio 2022 - v1.0</p>
+            </div>
+            <div class="row">
+                <!-- Usuario A -->
+                <div class="col p-2 m-2 rounded" style="background-color:#dbd4d463; border: 1px;">
+
+                    <div class="alert alert-success text-center" role="alert">
+                        <h5 class="alert-heading">Usuario A</h5>
+                        <hr>
+                        Total imagenes: {{ userA.getAmountImages() }} <br>
+                        Total espacio almacenado: {{ userA.getBytesStore() }} bytes
+                    </div>
+
+                    <form action="/send-image/AtoB" method="post" enctype="multipart/form-data">
+
+                        <input name="inputImageAtoB" type="file" class="form-control btn-outline-secondary"
+                            id="customFile" required />
+                        <br>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">k</span>
+                            </div>
+                            <input type="number" min="1" name="inputKAtoB" class="form-control"
+                                placeholder="Valores singulares (100 por defecto)" aria-describedby="basic-addon1">
+                        </div>
+                        <hr>
+
+                        <div class="text-center">
+                            <button class="btn btn-outline-primary" type="submit" name="send-image"
+                                value="send-original">Enviar Imagen Original
+                            </button>
+                            <button class="btn btn-outline-success" type="submit" name="send-image"
+                                value="send-compress">Enviar Imagen Comprimida
+                            </button>
+                            <hr>
+                            <br>
+                            <div class="progress" style="height: 33px;">
+                                <div id="progressUserA" class="progress-bar bg-priamry" role="progressbar"
+                                    style="width: {{userA.getPercentageStored()}}%;" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="100">{{ userA.getPercentageStored() }}%</div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- Usuario B -->
+                <div class="col p-2 m-2 rounded" style="background-color:#dbd4d463; border: 1px;">
+                    <div class="alert alert-success text-center" role="alert">
+                        <h5 class="alert-heading">Usuario B</h5>
+                        <hr>
+                        Total imagenes: {{ userB.getAmountImages() }}<br>
+                        Total espacio almacenado: {{ userB.getBytesStore() }} bytes
+                    </div>
+
+                    <form action="/send-image/BtoA" method="post" enctype="multipart/form-data">
+
+                        <input name="inputImageBtoA" type="file" class="form-control btn-outline-secondary"
+                            id="customFile" required />
+                        <br>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">k</span>
+                            </div>
+                            <input type="number" min="1" name="inputKBtoA" class="form-control"
+                                placeholder="Valores singulares (100 por defecto)" aria-describedby="basic-addon1">
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <button class="btn btn-outline-primary" type="submit" name="send-image"
+                                value="send-original">Enviar Imagen Original
+                            </button>
+                            <button class="btn btn-outline-success" type="submit" name="send-image"
+                                value="send-compress">Enviar Imagen Comprimida
+                            </button>
+                            <hr>
+                            <br>
+                            <div class="progress" style="height: 33px;">
+                                <div id="progressUserB" class="progress-bar bg-success" role="progressbar"
+                                    style="width: {{userB.getPercentageStored()}}%;" aria-valuenow="85"
+                                    aria-valuemin="0" aria-valuemax="100">{{ userB.getPercentageStored() }}%</div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col p-2 m-2 rounded" style="background-color:#dbd4d463; border: 1px;">
+                    <img src="{{srcLastImageA}}" alt="" width="100%">
+                </div>
+                <div class="col p-2 m-2 rounded" style="background-color:#dbd4d463; border: 1px;">
+                    <img src="{{srcLastImageB}}" alt="" width="100%">
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <a type="submit" href="/reset" class="btn btn-outline-danger">Borrar contenido y recargar</a>
+            </div>
+            <hr>
+            <br>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
