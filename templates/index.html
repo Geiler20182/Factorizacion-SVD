@@ -9,6 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <title>Factorizacion SVD</title>
 
@@ -29,6 +31,31 @@
                 <hr>
                 <p class="mb-0 "> Junio 2022 - v1.0</p>
             </div>
+
+            <div id="spinner_list" class="text-center" style="display:none !important;">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-secondary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-danger" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-warning" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-info" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-dark" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+
             <div class="row">
                 <!-- Usuario A -->
                 <div class="col p-2 m-2 rounded" style="background-color:#dbd4d463; border: 1px;">
@@ -58,7 +85,7 @@
                             <button class="btn btn-outline-primary" type="submit" name="send-image"
                                 value="send-original">Enviar Imagen Original
                             </button>
-                            <button class="btn btn-outline-success" type="submit" name="send-image"
+                            <button class="btn btn-outline-success" type="submit" name="send-image" onclick="loading()"
                                 value="send-compress">Enviar Imagen Comprimida
                             </button>
                             <hr>
@@ -98,7 +125,7 @@
                             <button class="btn btn-outline-primary" type="submit" name="send-image"
                                 value="send-original">Enviar Imagen Original
                             </button>
-                            <button class="btn btn-outline-success" type="submit" name="send-image"
+                            <button class="btn btn-outline-success" type="submit" name="send-image" onclick="loading()"
                                 value="send-compress">Enviar Imagen Comprimida
                             </button>
                             <hr>
@@ -130,13 +157,17 @@
             </div>
             <hr>
             <br>
-
         </div>
-
 
     </main>
 
+    <script type="text/javascript">
+        function loading() {
+            var div2 = document.getElementById("spinner_list");
+            div2.style = "";
 
+        }
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

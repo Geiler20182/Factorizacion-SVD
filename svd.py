@@ -21,7 +21,6 @@
 
 
 """
-from mimetypes import init
 from PIL import Image
 import numpy as np
 import os
@@ -90,7 +89,7 @@ class User:
 
     def __init__(self) -> None:
         self.__MAX_BYTES = 5000000
-        self.__BYTES = 0#1004000
+        self.__BYTES = 0
         self.__images = []
 
     def send(self, image, user) -> bool:
@@ -167,6 +166,7 @@ class SVD:
         # solamente su diagonal, finalmente se multiplican estas matriz
         # con el operadore @ (sobrecargado en numpy.array)
         #
+        
         compressed_matrix = (U[:, 0 : k]             @ 
                             np.diag(S)[0 : k, 0 : k] @
                             VT[0 : k, :])
@@ -217,4 +217,10 @@ class Manager:
 
 
     def getSrcLastImages(self) -> str:
-        return  self.lastImageUserA,  self.lastImageUserB
+
+        srcA = self.lastImageUserA
+        srcA = srcA[srcA.find("static/images") : ]  
+        srcB = self.lastImageUserB
+        srcB = srcB[srcB.find("static/images") : ]  
+       
+        return srcA, srcB
